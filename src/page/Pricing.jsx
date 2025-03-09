@@ -1,11 +1,10 @@
 // Uses the same styles as Product
-import AppNav from "../components/AppNav";
+
 import styles from "./Product.module.css";
 
 export default function Product() {
   return (
     <>
-      <AppNav />
       <main className={styles.product}>
         <section>
           <div>
