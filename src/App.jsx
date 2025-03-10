@@ -11,18 +11,18 @@ import { useEffect, useState } from "react";
 const URL = "http://localhost:5000";
 function App() {
   const [cities, setCities] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(function () {
     async function fetchCities() {
       try {
-        setLoading(true);
+        setIsLoading(true);
         const res = await fetch(`${URL}/cities`);
         const data = await res.json();
         setCities(data);
       } catch (error) {
         alert(error.message);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     }
     fetchCities();
@@ -37,7 +37,7 @@ function App() {
         <Route path="/app" element={<AppLayout />}>
           <Route
             index
-            element={<CityList cities={cities} loading={loading} />}
+            element={<CityList cities={cities} loading={isLoading} />}
           />
           <Route path="cities" element={<p>cities</p>} />
           <Route path="countries" element={<p>List of countries</p>} />
