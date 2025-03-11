@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Products from "./page/Product";
 import Pricing from "./page/Pricing";
 import Homepage from "./page/Homepage";
@@ -7,6 +7,9 @@ import Login from "./page/Login";
 import AppLayout from "./page/AppLayout";
 import CityList from "./components/CityList";
 import { useEffect, useState } from "react";
+import CountryList from "./components/CountryList";
+import Form from "./components/Form";
+import City from "./components/City";
 
 const URL = "http://localhost:5000";
 function App() {
@@ -31,17 +34,26 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/product" element={<Products />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="product" element={<Products />} />
+        <Route path="pricing" element={<Pricing />} />
+        <Route path="login" element={<Login />} />
         <Route path="/app" element={<AppLayout />}>
+          <Route index element={<Navigate replace to="cities" />} />
           <Route
-            index
+            path="cities"
             element={<CityList cities={cities} loading={isLoading} />}
           />
-          <Route path="cities" element={<p>cities</p>} />
-          <Route path="countries" element={<p>List of countries</p>} />
-          <Route path="form" element={<p>List of Form</p>} />
+
+          {/* steps of creating react params 
+          1. creating route
+          2. link that route
+          3. reading state of route params*/}
+          <Route path="cities/:id" element={<City />} />
+          <Route
+            path="countries"
+            element={<CountryList cities={cities} loading={isLoading} />}
+          />
+          <Route path="form" element={<Form />} />
         </Route>
         <Route path="*" element={<PagesNoFound />} />
       </Routes>
